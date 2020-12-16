@@ -1,0 +1,13 @@
+---
+
+- name: define pin version and priority for {{ item.name }}
+  copy:
+    dest: /etc/apt/preferences.d/{{ item.name | regex_replace('-[0-9.]+', '') }}
+    content: |
+      Package: {{ item.name | mandatory }}
+      Pin: version {{ item.version | mandatory }}
+      Pin-Priority: {{ item.priority | default(apt_pin_priority) }}
+    owner: '{{ apt_pin_owner }}'
+    group: '{{ apt_pin_group }}'
+    mode: '{{ apt_pin_mode }}'
+  become: yes

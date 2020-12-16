@@ -1,0 +1,4 @@
+- src: git@github.com:/gcoop-libre/ansible_role_apt_pin
+  scm: git
+  version: v0.1.0
+  name: gcoop-libre.apt_pin

@@ -1,0 +1,8 @@
+---
+
+- name: (apt_pin) update apt
+  apt:
+    update_cache: '{{ apt_pin_update_cache | default(true) }}'
+    cache_valid_time: '{{ apt_pin_cache_valid_time | default(3600) }}'
+  changed_when: False
+  become: yes

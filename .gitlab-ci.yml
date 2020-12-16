@@ -1,0 +1,30 @@
+---
+# -*- coding: utf-8 -*-
+
+before_script:
+  - env
+  - hostname
+  - ip r
+  - ansible --version
+  - ansible-lint --version
+  - make tools
+  - export PATH="$PWD/ansible_tools:$PATH"
+
+stages:
+  - ansible-lint
+  - ansible-syntax-check
+
+ansible-lint:
+  stage: ansible-lint
+  script:
+    - make lint
+  tags:
+    - ansible
+
+ansible-syntax-check:
+  stage: ansible-syntax-check
+  script:
+    - requirements-ssh2https
+    - make syntax
+  tags:
+    - ansible

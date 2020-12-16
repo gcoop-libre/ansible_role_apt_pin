@@ -1,0 +1,24 @@
+---
+
+- name: (apt_pin) include apt tasks
+  include_tasks: apt_update.yml
+  when:
+    - apt_pin_update_cache is defined
+    - apt_pin_update_cache | bool
+
+- name: (apt_pin) include apt preferences
+  include_tasks: apt_preferences.yml
+  when:
+    - apt_pin_preferences is defined
+    - apt_pin_preferences | bool
+    - apt_pin_packages is defined
+    - apt_pin_packages | length > 0
+  loop: '{{ apt_pin_packages }}'
+
+- name: (apt_pin) include apt tasks
+  include_tasks: apt_install.yml
+  when:
+    - apt_pin_install is defined
+    - apt_pin_install | bool
+    - apt_pin_packages is defined
+    - apt_pin_packages | length > 0

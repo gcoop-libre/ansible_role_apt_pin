@@ -4,7 +4,7 @@ apt_pin_cache_valid_time: 3600
 apt_pin_install: false
 apt_pin_packages: []
 apt_pin_preferences: true
-apt_pin_update_cache: true
+apt_pin_update_cache: false
 apt_pin_priority: 500
 apt_pin_owner: root
 apt_pin_group: root

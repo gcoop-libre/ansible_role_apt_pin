@@ -1,0 +1,14 @@
+---
+
+- name: define apt_pin_packages_version
+  set_fact:
+    apt_pin_packages_version: "{{ apt_pin_packages_version | default([]) + [ item.name + '=' + item.version ] }}"
+  loop: "{{ apt_pin_packages }}"
+
+- name: install apt_pin_packages_version
+  command: >
+    apt install -y --allow-downgrades {{ apt_pin_packages_version | join(' ') }}
+  retries: '{{ apt_pin_retries | default(2) }}'
+  become: yes
+  register: _apt_pin_install
+  until: _apt_pin_install is succeeded
